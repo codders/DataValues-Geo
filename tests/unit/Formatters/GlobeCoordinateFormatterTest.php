@@ -110,6 +110,16 @@ class GlobeCoordinateFormatterTest extends TestCase {
 		$this->assertSame( '1.2, 3.4', $formatted );
 	}
 
+	public function testInvalidOptions() {
+		$options = new FormatterOptions();
+		$options->setOption( LatLongFormatter::OPT_NORTH_SYMBOL, 1 );
+		$options->setOption( LatLongFormatter::OPT_DIRECTIONAL, true );
+		$formatter = new GlobeCoordinateFormatter( $options );
+
+		$formatted = $formatter->format( new GlobeCoordinateValue( new LatLongValue( 1.2, 3.4 ), null ) );
+		$this->assertSame( '1.2 N, 3.4 E', $formatted );
+	}
+
 	/**
 	 * @dataProvider validProvider
 	 */
